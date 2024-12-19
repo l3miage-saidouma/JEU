@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        xmlns:pl="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        elementFormDefault="qualified"
+>
+    <include schemaLocation="Rectangle.xsd"/>
+    <include schemaLocation="position.xsd"/>
+    
+    <!--element racine-->
+    <element name="player" type="pl:Player"/>
+    
+    <!-- coimplexetype de Player-->
+    <complexType name="Player">
+        <sequence>
+            <element name="health" type="int"/>
+            <element name="maxHealth" type="int"/>
+            <element name="attack" type="int"/>
+            <element name="velocity" type="int"/>
+            <element name="position" type="pl:Position"/>
+            <element name="Rect" type="pl:Rectangle"/>
+            <element name="size" type="int"/>
+        </sequence>
+        <attribute name="estToucher" type="boolean" use="required"/>
+    </complexType>
+    
+    
+    
+</schema>

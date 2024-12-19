@@ -1,0 +1,88 @@
+class MyGame{
+player : Player
+monsters : ListeMonster
+meteors : ListeMeteor
+projectiles : ListeProjectile
+second : double
+estMenu : bool
+estPause : bool
+estGameOver : bool
+score : int
+MeilleurScore : int 
+meteorTimer : double
+
+ 
+
+}
+
+class ListeMonster{
+monster : Monster 
+}
+
+class Player{
+health : int
+max_health : int 
+attack : int 
+velocity : int
+rect : Rectangle
+position : Rectangle
+size : int 
+estToucher : bool
+
+}
+
+class ListeProjectile{
+projectile : Projectile
+}
+
+class Monster{
+health : int
+max_health : int
+attack : int
+size : int
+rect : Rect
+velocity : int
+estToucher : bool
+
+}
+
+class Projectile{
+size : int
+velocity : int
+estToucher : bool
+Rect : Rectangle
+
+}
+
+class Meteor{
+speed : int
+rect : Rectangle
+IsOffScreen : bool
+}
+
+class ListeMeteor{
+meteors : Meteor
+
+}
+
+class Rectangle{
+x : int
+y : int 
+}
+
+
+
+
+
+MyGame *-- Player
+MyGame *-- ListeMonster
+MyGame *-- ListeMeteor
+MyGame *-- ListeProjectile
+
+ListeMonster *-- Monster
+ListeProjectile *-- Projectile
+ListeMeteor *-- Meteor
+Player *-- Rectangle
+Monster *-- Rectangle
+Projectile *-- Rectangle
+Meteor *-- Rectangle

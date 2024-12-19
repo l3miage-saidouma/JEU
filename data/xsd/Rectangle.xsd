@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        xmlns:co="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        elementFormDefault="qualified"
+>
+    <!--element racine-->
+    <element name="Rectangle" type="co:Rectangle"/>
+    
+    <!--complexetype de Coordinate-->
+    <complexType name="Rectangle">
+        <sequence>
+            <element name="X" type="int"/>
+            <element name="Y" type="int"/>
+            <element name="with" type="int"/>
+            <element name="height" type="int"/>
+        </sequence>
+    </complexType>
+    
+</schema>

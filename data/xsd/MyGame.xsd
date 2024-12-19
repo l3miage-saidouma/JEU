@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        xmlns:mg="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        elementFormDefault="qualified"
+>
+    <!-- inclusion des shemas-->
+    <include schemaLocation="player.xsd"/>
+    <include schemaLocation="projectile.xsd"/>
+    <include schemaLocation="monster.xsd"/>
+    <include schemaLocation="meteor.xsd"/>
+    <include schemaLocation="position.xsd"/>
+    
+    <!-- element racine-->
+    <element name="myGame" type="mg:MyGame"/>
+    
+    <!--complexetype de MyGame-->
+    <complexType name="MyGame">
+        <sequence>
+            <element name="player" type="mg:Player"/>
+            <element name="monsters" type="mg:ListeMonster"/>
+            <element name="meteors" type="mg:ListeMeteor"/>
+            <element name="projectiles" type="mg:ListeProjectile"/>
+            <element name="second" type="double"/>
+            <element name="score" type="int"/>
+            <element name="meteorTimer" type="double"/>
+        </sequence>
+        <attribute name="estMenu" type="boolean"/>
+        <attribute name="estPause" type="boolean"/>
+        <attribute name="estGameOver" type="boolean"/>
+        <attribute name="meilleurScore" type="int"/>
+    </complexType>
+    
+    <!-- complexetype de Liste des Monster-->
+    <complexType name="ListeMonster">
+        <sequence>
+            <element name="monster" type="mg:Monster" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    
+    <!--complextyope de listeProjectrile-->
+    <complexType name="ListeProjectile">
+        <sequence>
+            <element name="projectile" type="mg:Projectile" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    
+    <!--complextype de ListeMeteor-->
+    <complexType name="ListeMeteor">
+        <sequence>
+            <element name="meteor" type="mg:Meteor" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+</schema>

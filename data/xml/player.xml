@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<player xmlns="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        xmlns:mg="http://www.w3.org/2001/XMLSchema-instance"
+        mg:schemaLocation = "www.univ-grenoble-alpes.fr/projetJeuVideo ../xsd/player.xsd"
+        estToucher="false"
+>
+    <health>200</health>
+    <maxHealth>200</maxHealth>
+    <attack>3</attack>
+    <velocity>10</velocity>
+    <position>
+        <X>1500</X>
+        <Y>900</Y>
+    </position>
+    <Rect>
+        <X>1500</X>
+        <Y>600</Y>
+    </Rect>
+    <size>40</size>
+</player>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        xmlns:ms="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        elementFormDefault="qualified"
+>
+    <!--inclusion de coordinate-->
+    <include schemaLocation="Rectangle.xsd"/>
+    <include schemaLocation="position.xsd"/>
+    
+    <!--element racine -->
+    <element name="monster" type="ms:Monster"/>
+    
+    <!-- creation du complexetype de Monster-->
+    <complexType name="Monster">
+        <sequence>
+            <element name="health" type="int"/>
+            <element name="max_health" type="int"/>
+            <element name="attack" type="int"/>
+            <element name="size" type="int"/>
+            <element name="position" type="ms:Position"/>
+            <element name="rect" type="ms:Rectangle"/>
+            <element name="velocity" type="int"/>
+        </sequence>
+        <attribute name="estToucher" type="boolean" use="required"/>
+    </complexType>
+</schema>

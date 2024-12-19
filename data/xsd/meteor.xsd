@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        xmlns:met="www.univ-grenoble-alpes.fr/projetJeuVideo"
+        elementFormDefault="qualified"
+>
+    <include schemaLocation="Rectangle.xsd"/>
+    
+    <!-- definition de la racine-->
+    <element name="meteor" type="met:Meteor"/>
+    
+    <!--definition du complexetype de Meteor-->
+    <complexType name="Meteor">
+        <sequence>
+            <element name="speed" type="int"/>
+            <element name="rect" type="met:Rectangle"/>
+        </sequence>
+        <attribute name="IsOffScreen" type="boolean" use="required"/>
+    </complexType>
+</schema>
