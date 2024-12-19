@@ -25,7 +25,7 @@ max_health : int
 attack : int 
 velocity : int
 rect : Rectangle
-position : Rectangle
+position : position
 size : int 
 estToucher : bool
 
@@ -40,7 +40,8 @@ health : int
 max_health : int
 attack : int
 size : int
-rect : Rect
+position : Position
+rect : Rectangle
 velocity : int
 estToucher : bool
 
@@ -50,6 +51,7 @@ class Projectile{
 size : int
 velocity : int
 estToucher : bool
+position : Position
 Rect : Rectangle
 
 }
@@ -67,11 +69,14 @@ meteors : Meteor
 
 class Rectangle{
 x : int
-y : int 
+y : int
+with : int
+height : int 
 }
-
-
-
+class Position{
+X : int
+Y : int
+}
 
 
 MyGame *-- Player
@@ -86,3 +91,6 @@ Player *-- Rectangle
 Monster *-- Rectangle
 Projectile *-- Rectangle
 Meteor *-- Rectangle
+Player *-- Position
+Monster *--Position
+Projectile *-- Position

@@ -44,21 +44,16 @@ public class MyGame : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "./Content";
         IsMouseVisible = true;
-        
         _graphics.PreferredBackBufferHeight = backroundheight;
         _graphics.PreferredBackBufferWidth = backroundwidth;
     }
     private void ResetGame(){
         // Réinitialise le joueur
        _player = new Player(_player.Texture, new Vector2(150, backroundheight / 2), 150);
-        
-
         // Vide les listes de projectiles et de monstres
         _ListeProjectile.Clear();
         _ListeMonster.Clear();
-
         // Réinitialise l'état du menu
-        
         estMenu = false; // On relance directement la partie
     }
 
@@ -69,10 +64,8 @@ public class MyGame : Game
         
         // Activer la musique en boucle
         MediaPlayer.IsRepeating = true;
-
         // Définir le volume (entre 0.0 et 1.0)
-        MediaPlayer.Volume = 0.5f;
-
+        MediaPlayer.Volume = 0.1f;
         // Jouer la musique
         MediaPlayer.Play(_backgroundMusic);
     }
@@ -86,16 +79,11 @@ public class MyGame : Game
         menuTexture = Content.Load<Texture2D>("assets/images/menu");
         pauseTexture = Content.Load<Texture2D>("assets/images/pause");
         gameOverTexture = Content.Load<Texture2D>("assets/images/gameOver");
-        
         _meteorTexture = Content.Load<Texture2D>("assets/images/meteor");
         _backgroundMusic = Content.Load<Song>("assets/sound/song");
         
         _player = new Player(playerTexture, new Vector2(150, 900),150);
         
-
-        //_ListeMonster[0] = new Monster(mosterTexture, 140);
-
-
         // TODO: use this.Content to load your game content here
     }
     
@@ -131,18 +119,13 @@ public class MyGame : Game
 
             }
             MediaPlayer.Pause();
-            
-            //-----------------------------------------------------
-        }else if (estPause)
-        {
+        }else if (estPause){
             if (Keyboard.GetState().IsKeyDown(Keys.Enter)){
                 estPause = false;
-
             }
             MediaPlayer.Pause();
         }else if (estGameOver){
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-            {
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter)){
                 if (meilleurScore < score)
                     meilleurScore = score;
                 ResetGame();
@@ -152,8 +135,7 @@ public class MyGame : Game
                 score = 0;
             }
             MediaPlayer.Pause();
-        }
-        else{
+        }else{
             // TODO: Add your update logic here
             //Faire bouger le joueur
             MediaPlayer.Resume();
@@ -166,24 +148,18 @@ public class MyGame : Game
             if (Keyboard.GetState().IsKeyDown(Keys.A)){
                 _ListeProjectile.Add( new Projectile(_projectileTexture,(int)_player.Rect.X+85,(int)_player.Rect.Y-15,40));
             }
-
             if (Keyboard.GetState().IsKeyDown(Keys.Space)){
                 estPause = true;
                 
                 if (_player.Health <=0){
                     estGameOver = true;
                 }
-                
             }
-
-            
-        
             // Mettre à jour les projectiles
             Pcolision(gameTime);
             foreach (var projectile in _ListeProjectile){
                 projectile.Update(gameTime);
             }
-            //-----------
             _ListeProjectile.RemoveAll(p => p.estToucher);
         
             //mettre a jour les monster -------
@@ -197,10 +173,7 @@ public class MyGame : Game
             foreach (var monster in _ListeMonster){
                 if (!monster._Rect.Intersects(_player.Rect)){
                     monster.Update(gameTime);
-                    
-                }
-                else
-                {
+                }else{
                     _player.Damage();
                     if (_player.Health <=0){
                         estGameOver = true;
@@ -209,43 +182,34 @@ public class MyGame : Game
                     }
                 }
             }
-            //------------
-            
             int i = _ListeMonster.RemoveAll(m => m.estToucher);
             if (i != 0)
                 score += 1;
         }
         // Timer pour la pluie de météorites
         _meteorTimer += gameTime.ElapsedGameTime.TotalSeconds;
-
-        if (_meteorTimer > 1.0) // Intervalle de 1 seconde
-        {
+        
+        // Intervalle de 1 seconde
+        if (_meteorTimer > 1.0){
             _meteorTimer = 0;
 
             // Crée une nouvelle météorite à une position aléatoire en haut de l'écran
             int xPosition = _random.Next(0, backroundwidth - 50); // Position aléatoire sur l'axe X
             _meteors.Add(new Meteor(_meteorTexture, new Vector2(xPosition, -50), _random.Next(5, 10)));
         }
-
         // Mettre à jour les météorites
-        foreach (var meteor in _meteors)
-        {
+        foreach (var meteor in _meteors){
             meteor.Update();
-
             // Vérifier les collisions avec le joueur
-            if (meteor.Rect.Intersects(_player.Rect))
-            {
+            if (meteor.Rect.Intersects(_player.Rect)){
                 _player.Damage(); // Inflige des dégâts au joueur
-                if (_player.Health <= 0)
-                {
+                if (_player.Health <= 0){
                     estGameOver = true;
                 }
             }
         }
-
         // Retirer les météorites qui sont hors écran
         _meteors.RemoveAll(m => m.IsOffScreen);
-
         
         base.Update(gameTime);
     }
@@ -253,54 +217,36 @@ public class MyGame : Game
     protected override void Draw(GameTime gameTime){
         //GraphicsDevice.Clear(Color.CornflowerBlue);
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        
-
         if (estMenu ){
             _spriteBatch.Draw(menuTexture, GraphicsDevice.Viewport.Bounds, Color.White);
-            
-            
-        }else if (estGameOver )
-        {
+        }else if (estGameOver ){
             _spriteBatch.Draw(gameOverTexture, GraphicsDevice.Viewport.Bounds, Color.White);
             //pour affiche le score 
-            string text = "" +
-                          "Your Score : " + score + "\n";
+            string text = "Your Score : " + score + "\n";
             var font = Content.Load<SpriteFont>("File");
             _spriteBatch.DrawString(font, text, new Vector2(630,450) , Color.White);
             //pour afficher le meilleur score
             text = "Your best Score : " + meilleurScore + "\n";
             font = Content.Load<SpriteFont>("File");
             _spriteBatch.DrawString(font, text, new Vector2(630,320) , Color.White);
-            text = "Enter to replay \n";
+            text = "Press Enter to replay \n";
             font = Content.Load<SpriteFont>("File");
             _spriteBatch.DrawString(font, text, new Vector2(450,700) , Color.White);
-            
-        }
-        else if (estPause )
-        {
+        }else if (estPause){
             _spriteBatch.Draw(pauseTexture, GraphicsDevice.Viewport.Bounds, Color.White);
-            // Pour afficher le score sur la page
-            string text = "" +
-                   "Your Score : " + score + "\n";
+            string text = "Your Score : " + score + "\n";
             var font = Content.Load<SpriteFont>("File");
             _spriteBatch.DrawString(font, text, new Vector2(630,420) , Color.White);
-        }
-        else{
+        }else{
             _spriteBatch.Draw(baground, GraphicsDevice.Viewport.Bounds, Color.White);
-            _player.Draw(_spriteBatch); //affichage du joueur
+            _player.Draw(_spriteBatch); 
             _player.DrawHealthBar(_spriteBatch, gameTime);
-            
-            // Pour afficher le score sur la page
             string text = "Game \n" +
                           "Your Score: " + score + "\n";
             var font = Content.Load<SpriteFont>("File");
-            _spriteBatch.DrawString(font, text, new Vector2(10,20) , Color.White);
-           
-            
-            
+            _spriteBatch.DrawString(font, text, new Vector2(5,20) , Color.White);
             //affichage des projectiles
-            foreach (var projectile in _ListeProjectile)
-            {
+            foreach (var projectile in _ListeProjectile){
                 projectile.Draw(_spriteBatch);
             }
             //affichage des monstres
@@ -309,18 +255,12 @@ public class MyGame : Game
                 monster.DrawHealthBar(_spriteBatch,gameTime);
             }
             // Dessiner les météorites
-            foreach (var meteor in _meteors)
-            {
+            foreach (var meteor in _meteors){
                 meteor.Draw(_spriteBatch);
             }
-
         }
-        
         _spriteBatch.End();
-        
-        
         // TODO: Add your drawing code here
-
         base.Draw(gameTime);
     }
 }
