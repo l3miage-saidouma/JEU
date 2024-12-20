@@ -65,7 +65,7 @@ public class MyGame : Game
         // Activer la musique en boucle
         MediaPlayer.IsRepeating = true;
         // Définir le volume (entre 0.0 et 1.0)
-        MediaPlayer.Volume = 0.1f;
+        MediaPlayer.Volume = 0.4f;
         // Jouer la musique
         MediaPlayer.Play(_backgroundMusic);
     }
